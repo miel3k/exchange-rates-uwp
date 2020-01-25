@@ -3,6 +3,8 @@ using ExchangeRates.Model;
 using Microsoft.Toolkit.Uwp.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,6 +29,27 @@ namespace ExchangeRates.App.ExchangeTable
         {
             get => _exchangeTable;
             set => Set(ref _exchangeTable, value);
+        }
+
+        private ObservableCollection<Rate> _rates;
+
+        public ObservableCollection<Rate> Rates
+        {
+            get => _rates;
+            set
+            {
+                if (_rates != value)
+                {
+                    value.CollectionChanged += Rates_Changed;
+                }
+                _rates = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private void Rates_Changed(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(Rates));
         }
 
         public async Task GetExchangeTableAsync()

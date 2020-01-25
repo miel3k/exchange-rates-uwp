@@ -9,6 +9,21 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-
+        <ListView x:Name="LineItemListView"
+                  ItemTemplate="{StaticResource DefaultLineItemTemplate}"
+                  ItemsSource="{x:Bind ViewModel.Rates, Mode=OneWay}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment"
+                            Value="Stretch" />
+                    <Setter Property="Margin"
+                            Value="0,0,0,0" />
+                    <Setter Property="Padding"
+                            Value="0,0,0,0" />
+                    <Setter Property="MinHeight"
+                            Value="0" />
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
     </Grid>
 </Page>

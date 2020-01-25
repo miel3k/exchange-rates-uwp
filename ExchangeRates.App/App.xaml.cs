@@ -1,4 +1,5 @@
-﻿using ExchangeRates.Repository;
+﻿using ExchangeRates.App.ExchangeTable;
+using ExchangeRates.Repository;
 using ExchangeRates.Repository.Remote;
 using System;
 using System.Collections.Generic;
@@ -75,6 +76,7 @@ namespace ExchangeRates.App
                 // Ensure the current window is active
                 Window.Current.Activate();
             }
+            rootFrame.Navigate(typeof(ExchangeTablePage));
         }
 
         /// <summary>

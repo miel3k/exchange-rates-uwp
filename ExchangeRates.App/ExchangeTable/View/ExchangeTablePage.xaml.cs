@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -22,9 +24,26 @@ namespace ExchangeRates.App.ExchangeTable
     /// </summary>
     public sealed partial class ExchangeTablePage : Page
     {
-        public ExchangeTablePage()
+        public ExchangeTablePage() => InitializeComponent();
+
+        private ExchangeTableViewModel _viewModel;
+
+        public ExchangeTableViewModel ViewModel
         {
-            this.InitializeComponent();
+            get => _viewModel;
+            set
+            {
+                if (_viewModel != value)
+                {
+                    _viewModel = value;
+                    OnPropertyChanged();
+                }
+            }
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null) =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }
