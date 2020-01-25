@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace ExchangeRates.Repository
+namespace ExchangeRates.Model
 {
-    interface IExchangeTableRepository
+    public interface IExchangeTableRepository
     {
+
+        Task<ExchangeTable> GetAsync(DateTime date);
     }
 }

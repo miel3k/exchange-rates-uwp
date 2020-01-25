@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ExchangeRates.Model
 {
-    class ExchangeTable
+    public class ExchangeTable
     {
         public string Table { get; set; }
 
