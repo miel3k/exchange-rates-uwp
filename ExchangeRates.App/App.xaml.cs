@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ExchangeRates.Repository;
+using ExchangeRates.Repository.Remote;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,6 +24,7 @@ namespace ExchangeRates.App
     /// </summary>
     sealed partial class App : Application
     {
+        public static INbpRepository Repository { get; private set; }
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -39,6 +42,7 @@ namespace ExchangeRates.App
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            SetupRepository();
             Frame rootFrame = Window.Current.Content as Frame;
 
             // Do not repeat app initialization when the Window already has content,
@@ -96,5 +100,8 @@ namespace ExchangeRates.App
             //TODO: Save application state and stop any background activity
             deferral.Complete();
         }
+
+        public static void SetupRepository() =>
+            Repository = new RemoteNbpRepository("http://api.nbp.pl/api/");
     }
 }

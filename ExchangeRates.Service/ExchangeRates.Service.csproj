@@ -9,4 +9,9 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ExchangeRates.Model\ExchangeRates.Model.csproj" />
+    <ProjectReference Include="..\ExchangeRates.Repository\ExchangeRates.Repository.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -7,7 +7,7 @@ using ExchangeRates.Model;
 
 namespace ExchangeRates.Service.Controllers
 {
-    [Route("api/exchangeRates")]
+    [Route("exchangeRates/tables/a")]
     public class ExchangeTableController : Controller
     {
         private IExchangeTableRepository _repository;
