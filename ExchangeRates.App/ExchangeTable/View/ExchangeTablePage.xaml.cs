@@ -41,6 +41,12 @@ namespace ExchangeRates.App.ExchangeTable
             }
         }
 
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            ViewModel = new ExchangeTableViewModel();
+            base.OnNavigatedTo(e);
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged([CallerMemberName] string propertyName = null) =>
