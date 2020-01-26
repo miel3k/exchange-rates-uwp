@@ -1,14 +1,38 @@
-﻿<Page
-    x:Class="ExchangeRates.App.ExchangeTable.ExchangeTablePage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:ExchangeRates.App.ExchangeTable"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+﻿<Page x:Class="ExchangeRates.App.ExchangeTable.ExchangeTablePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:ExchangeRates.App.ExchangeTable"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:model="using:ExchangeRates.Model"
+      mc:Ignorable="d"
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+
+        <DataTemplate x:Key="DefaultLineItemTemplate"
+                      x:DataType="model:Rate">
+            <Grid HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="250" />
+                </Grid.ColumnDefinitions>
+                <Border Grid.ColumnSpan="4"
+                        BorderBrush="LightGray"
+                        BorderThickness="0,0,0,1" />
+                <TextBlock Grid.Column="0"
+                           Margin="0,0,0,0"
+                           Padding="0,0,0,0"
+                           Text="{x:Bind Code}" />
+            </Grid>
+        </DataTemplate>
+
+    </Page.Resources>
 
     <Grid>
+        <CalendarDatePicker Name="selectedDate"
+                            VerticalAlignment="Center"
+                            Date="{x:Bind ViewModel.EffectiveDate, Mode=TwoWay}">
+        </CalendarDatePicker>
         <ListView x:Name="LineItemListView"
                   ItemTemplate="{StaticResource DefaultLineItemTemplate}"
                   ItemsSource="{x:Bind ViewModel.Rates, Mode=OneWay}">

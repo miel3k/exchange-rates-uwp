@@ -52,6 +52,14 @@ namespace ExchangeRates.App.ExchangeTable
             OnPropertyChanged(nameof(Rates));
         }
 
+        private DateTimeOffset _effectiveDate;
+
+        public DateTimeOffset EffectiveDate
+        {
+            get => _effectiveDate;
+            set => Set(ref _effectiveDate, value);
+        }
+
         public async Task GetExchangeTableAsync()
         {
             await DispatcherHelper.ExecuteOnUIThreadAsync(() => IsLoading = true);
@@ -61,6 +69,7 @@ namespace ExchangeRates.App.ExchangeTable
             await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
             {
                 ExchangeTable = table;
+                EffectiveDate = table.EffectiveDate;
                 IsLoading = false;
             });
         }
