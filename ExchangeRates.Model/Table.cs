@@ -12,7 +12,7 @@ namespace ExchangeRates.Model
 
         public DateTime EffectiveDate { get; set; }
 
-        public List<Rate> rates { get; set; } = new List<Rate>();
+        public List<Rate> Rates { get; set; } = new List<Rate>();
 
         public override string ToString() => No.ToString();
     }

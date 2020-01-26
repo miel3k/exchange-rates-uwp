@@ -17,6 +17,6 @@ namespace ExchangeRates.Repository.Remote
         }
 
         public async Task<IEnumerable<Table>> GetAsync(DateTime date) =>
-            await _http.GetAsync<IEnumerable<Table>>($"exchangeRates/tables/a/{date.ToShortDateString()}");
+            await _http.GetAsync<IEnumerable<Table>>($"exchangeRates/tables/a/{date.ToString(@"yyyy-MM-dd")}");
     }
 }

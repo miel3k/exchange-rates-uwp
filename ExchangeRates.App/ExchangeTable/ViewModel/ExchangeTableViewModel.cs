@@ -74,6 +74,11 @@ namespace ExchangeRates.App.ExchangeTable
                     ExchangeTable = table;
                     EffectiveDate = table.EffectiveDate;
                     IsLoading = false;
+                    Rates.Clear();
+                    foreach (var r in table.Rates)
+                    {
+                        Rates.Add(r);
+                    }
                 });
             }
         }
