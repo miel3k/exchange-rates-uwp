@@ -64,7 +64,7 @@ namespace ExchangeRates.App.ExchangeTable
         {
             await DispatcherHelper.ExecuteOnUIThreadAsync(() => IsLoading = true);
 
-            var tables = await App.Repository.ExchangeTables.GetAsync(DateTime.Now);
+            var tables = await App.Repository.ExchangeTables.GetAsync(DateTime.Now.Subtract(TimeSpan.FromDays(3)));
             var table = tables.First();
 
             if (table != null)
