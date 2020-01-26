@@ -8,6 +8,6 @@ namespace ExchangeRates.Model
     public interface IExchangeTableRepository
     {
 
-        Task<Table> GetAsync(DateTime date);
+        Task<IEnumerable<Table>> GetAsync(DateTime date);
     }
 }

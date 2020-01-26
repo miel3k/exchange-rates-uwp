@@ -64,14 +64,18 @@ namespace ExchangeRates.App.ExchangeTable
         {
             await DispatcherHelper.ExecuteOnUIThreadAsync(() => IsLoading = true);
 
-            var table = await App.Repository.ExchangeTables.GetAsync(DateTime.Now);
+            var tables = await App.Repository.ExchangeTables.GetAsync(DateTime.Now);
+            var table = tables.First();
 
-            await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+            if (table != null)
             {
-                ExchangeTable = table;
-                EffectiveDate = table.EffectiveDate;
-                IsLoading = false;
-            });
+                await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+                {
+                    ExchangeTable = table;
+                    EffectiveDate = table.EffectiveDate;
+                    IsLoading = false;
+                });
+            }
         }
     }
 }

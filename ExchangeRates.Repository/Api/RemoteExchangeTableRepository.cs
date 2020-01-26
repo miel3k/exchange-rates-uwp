@@ -16,7 +16,7 @@ namespace ExchangeRates.Repository.Remote
             _http = new HttpHelper(baseUrl);
         }
 
-        public async Task<Table> GetAsync(DateTime date) =>
-            await _http.GetAsync<Table>($"exchangeRates/tables/a/{date.ToShortDateString()}");
+        public async Task<IEnumerable<Table>> GetAsync(DateTime date) =>
+            await _http.GetAsync<IEnumerable<Table>>($"exchangeRates/tables/a/{date.ToShortDateString()}");
     }
 }
