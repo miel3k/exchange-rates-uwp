@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace ExchangeRates.Repository.Remote
 {
-    public class RemoteExchangeTableRepository : IExchangeTableRepository
+    public class RemoteTableRepository : ITableRepository
     {
         private readonly HttpHelper _http;
 
-        public RemoteExchangeTableRepository(string baseUrl)
+        public RemoteTableRepository(string baseUrl)
         {
             _http = new HttpHelper(baseUrl);
         }

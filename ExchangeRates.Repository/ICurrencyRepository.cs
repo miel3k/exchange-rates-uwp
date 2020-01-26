@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace ExchangeRates.Model
 {
-    public interface IExchangeTableRepository
+    public interface ICurrencyRepository
     {
-
-        Task<IEnumerable<Table>> GetAsync(DateTime date);
+        Task<CurrencyTable> GetAsync(String code, DateTime startDate, DateTime endDate);
     }
 }

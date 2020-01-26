@@ -4,6 +4,8 @@ namespace ExchangeRates.Repository
 {
     public interface INbpRepository
     {
-        IExchangeTableRepository ExchangeTables { get; }
+        ITableRepository Tables { get; }
+
+        ICurrencyRepository Currency { get; }
     }
 }

@@ -59,7 +59,7 @@ namespace ExchangeRates.App.ExchangeTable
                 Rates.Clear();
             });
 
-            var tables = await App.Repository.ExchangeTables.GetAsync(new DateTime(SelectedDate.Ticks));
+            var tables = await App.Repository.Tables.GetAsync(new DateTime(SelectedDate.Ticks));
             var table = tables.First();
 
             if (table != null)

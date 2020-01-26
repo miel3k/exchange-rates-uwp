@@ -1,4 +1,5 @@
 ﻿using ExchangeRates.Model;
+using ExchangeRates.Repository.Api;
 
 namespace ExchangeRates.Repository.Remote
 {
@@ -8,6 +9,8 @@ namespace ExchangeRates.Repository.Remote
 
         public RemoteNbpRepository(string url) => _url = url;
 
-        public IExchangeTableRepository ExchangeTables => new RemoteExchangeTableRepository(_url);
+        public ITableRepository Tables => new RemoteTableRepository(_url);
+
+        public ICurrencyRepository Currency => new RemoteCurrencyRepository(_url);
     }
 }

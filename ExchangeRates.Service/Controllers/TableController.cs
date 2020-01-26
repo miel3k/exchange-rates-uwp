@@ -8,12 +8,11 @@ using ExchangeRates.Model;
 namespace ExchangeRates.Service.Controllers
 {
     [Route("exchangeRates/tables/a")]
-    public class ExchangeTableController : Controller
+    public class TableController : Controller
     {
-        private IExchangeTableRepository _repository;
+        private ITableRepository _repository;
 
-        public ExchangeTableController(IExchangeTableRepository repository)
-            => _repository = repository;
+        public TableController(ITableRepository repository) => _repository = repository;
 
         [HttpGet("{date}")]
         public async Task<IActionResult> Get(DateTime date)
