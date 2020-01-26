@@ -13,7 +13,7 @@ namespace ExchangeRates.App.ExchangeTable
 {
     public class ExchangeTableViewModel : BindableViewModel
     {
-        public ExchangeTableViewModel() => Task.Run(GetExchangeTableAsync);
+        public ExchangeTableViewModel() => Task.Run(LoadExchangeTableAsync);
 
         private bool _isLoading = false;
 
@@ -31,40 +31,35 @@ namespace ExchangeRates.App.ExchangeTable
             set => Set(ref _exchangeTable, value);
         }
 
-        private ObservableCollection<Rate> _rates;
+        public ObservableCollection<Rate> Rates { get; private set; } = new ObservableCollection<Rate>();
 
-        public ObservableCollection<Rate> Rates
+        private DateTimeOffset _selectedDate = DateTime.Now.Subtract(TimeSpan.FromDays(3));
+
+        public DateTimeOffset SelectedDate
         {
-            get => _rates;
+            get => _selectedDate;
             set
             {
-                if (_rates != value)
-                {
-                    value.CollectionChanged += Rates_Changed;
-                }
-                _rates = value;
-                OnPropertyChanged();
+                //TODO Check if is Sunday etc. or inform user
+                Set(ref _selectedDate, value);
+                Task.Run(LoadExchangeTableAsync);
             }
         }
 
-        private void Rates_Changed(object sender, NotifyCollectionChangedEventArgs e)
+        public DateTimeOffset MaxDate
         {
-            OnPropertyChanged(nameof(Rates));
+            get { return DateTime.Now; }
         }
 
-        private DateTimeOffset _effectiveDate;
-
-        public DateTimeOffset EffectiveDate
+        public async Task LoadExchangeTableAsync()
         {
-            get => _effectiveDate;
-            set => Set(ref _effectiveDate, value);
-        }
+            await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+            {
+                IsLoading = true;
+                Rates.Clear();
+            });
 
-        public async Task GetExchangeTableAsync()
-        {
-            await DispatcherHelper.ExecuteOnUIThreadAsync(() => IsLoading = true);
-
-            var tables = await App.Repository.ExchangeTables.GetAsync(DateTime.Now.Subtract(TimeSpan.FromDays(3)));
+            var tables = await App.Repository.ExchangeTables.GetAsync(new DateTime(SelectedDate.Ticks));
             var table = tables.First();
 
             if (table != null)
@@ -72,9 +67,7 @@ namespace ExchangeRates.App.ExchangeTable
                 await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
                 {
                     ExchangeTable = table;
-                    EffectiveDate = table.EffectiveDate;
                     IsLoading = false;
-                    Rates.Clear();
                     foreach (var r in table.Rates)
                     {
                         Rates.Add(r);

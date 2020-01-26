@@ -5,51 +5,108 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:model="using:ExchangeRates.Model"
+      xmlns:sys="using:System"
       mc:Ignorable="d"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Page.Resources>
 
-        <DataTemplate x:Key="DefaultLineItemTemplate"
+        <DataTemplate x:Key="RateItemTemplate"
                       x:DataType="model:Rate">
             <Grid HorizontalAlignment="Stretch">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="250" />
+                    <ColumnDefinition Width="200" />
+                    <ColumnDefinition Width="80" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="120" />
                 </Grid.ColumnDefinitions>
-                <Border Grid.ColumnSpan="4"
-                        BorderBrush="LightGray"
-                        BorderThickness="0,0,0,1" />
+                <Border
+                    Grid.ColumnSpan="4"
+                    BorderBrush="LightGray"
+                    BorderThickness="0,0,0,1" />
                 <TextBlock Grid.Column="0"
                            Margin="0,0,0,0"
                            Padding="0,0,0,0"
-                           Text="{x:Bind Code}" />
+                           Text="{x:Bind Currency}" />
+                <TextBlock
+                    Grid.Column="1"
+                    Margin="0,0,0,0"
+                    Padding="0,0,0,0"
+                    HorizontalAlignment="Right"
+                    Text="{x:Bind Code}" />
+                <TextBlock
+                    Grid.Column="3"
+                    Margin="8,0,0,0"
+                    Padding="0,0,0,0"
+                    HorizontalAlignment="Right"
+                    Text="{x:Bind sys:String.Format('{0} PLN', Mid)}" />
             </Grid>
         </DataTemplate>
 
     </Page.Resources>
 
     <Grid>
-        <CalendarDatePicker Name="selectedDate"
-                            VerticalAlignment="Center"
-                            Date="{x:Bind ViewModel.EffectiveDate, Mode=TwoWay}">
-        </CalendarDatePicker>
-        <ListView x:Name="LineItemListView"
-                  ItemTemplate="{StaticResource DefaultLineItemTemplate}"
+        <RelativePanel>
+            <StackPanel
+                x:Name="PageTitle"
+                Orientation="Horizontal">
+                <TextBlock
+                    Margin="0"
+                    Style="{StaticResource PageTitleTextBlockStyle}"
+                    Text="Exchange Rates" />
+                <TextBlock
+                    Margin="0"
+                    Style="{StaticResource PageTitleTextBlockStyle}"
+                    Text="{x:Bind ViewModel.ExchangeTable.No, Mode=OneWay}" />
+                <TextBlock
+                    Margin="0"
+                    Style="{StaticResource PageTitleTextBlockStyle}"
+                    Text="{x:Bind ViewModel.ExchangeTable.EffectiveDate, Mode=OneWay}" />
+            </StackPanel>
+            
+            <CommandBar
+                x:Name="mainCommandBar"
+                Margin="0,0,0,0"
+                Background="Transparent"
+                Loaded="CommandBar_Loaded"
+                RelativePanel.AlignRightWithPanel="True"
+                RelativePanel.RightOf="PageTitle">
+                <AppBarButton
+                    Click="RefreshButton_Click"
+                    Icon="Refresh"
+                    IsEnabled="{x:Bind ViewModel.IsLoading, Mode=OneWay}"
+                    Label="Refresh" />
+            </CommandBar>
+            
+            <CalendarDatePicker 
+                x:Name="selectedDate"
+                VerticalAlignment="Center"
+                RelativePanel.Below="PageTitle"
+                MaxDate="{x:Bind ViewModel.MaxDate}"
+                Date="{x:Bind ViewModel.SelectedDate, Mode=TwoWay}">
+            </CalendarDatePicker>
+            <ListView x:Name="RatesListView"
+                  RelativePanel.AlignBottomWithPanel="True"
+                   RelativePanel.AlignLeftWithPanel="True"
+                RelativePanel.AlignRightWithPanel="True"
+                  RelativePanel.Below="selectedDate"
+                  ItemTemplate="{StaticResource RateItemTemplate}"
                   ItemsSource="{x:Bind ViewModel.Rates, Mode=OneWay}">
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment"
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment"
                             Value="Stretch" />
-                    <Setter Property="Margin"
+                        <Setter Property="Margin"
                             Value="0,0,0,0" />
-                    <Setter Property="Padding"
+                        <Setter Property="Padding"
                             Value="0,0,0,0" />
-                    <Setter Property="MinHeight"
+                        <Setter Property="MinHeight"
                             Value="50" />
-                    <Setter Property="MinWidth"
+                        <Setter Property="MinWidth"
                             Value="50" />
-                </Style>
-            </ListView.ItemContainerStyle>
-        </ListView>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+        </RelativePanel>
     </Grid>
 </Page>

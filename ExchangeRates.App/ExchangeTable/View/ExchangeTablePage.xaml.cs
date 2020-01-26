@@ -47,6 +47,24 @@ namespace ExchangeRates.App.ExchangeTable
             base.OnNavigatedTo(e);
         }
 
+        private void CommandBar_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile")
+            {
+                (sender as CommandBar).DefaultLabelPosition = CommandBarDefaultLabelPosition.Bottom;
+            }
+            else
+            {
+                (sender as CommandBar).DefaultLabelPosition = CommandBarDefaultLabelPosition.Right;
+            }
+        }
+
+        /// <summary>
+        /// Reloads the order.
+        /// </summary>
+        private async void RefreshButton_Click(object sender, RoutedEventArgs e) =>
+            await ViewModel.LoadExchangeTableAsync();
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged([CallerMemberName] string propertyName = null) =>
