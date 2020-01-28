@@ -50,6 +50,23 @@ namespace ExchangeRates.App.CurrencyHistory
             base.OnNavigatedTo(e);
         }
 
+        private void CommandBar_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile")
+            {
+                (sender as CommandBar).DefaultLabelPosition = CommandBarDefaultLabelPosition.Bottom;
+            }
+            else
+            {
+                (sender as CommandBar).DefaultLabelPosition = CommandBarDefaultLabelPosition.Right;
+            }
+        }
+
+        private void SaveChartButton_Click(object sender, RoutedEventArgs e)
+        {
+            HistoryChart.Save();
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged([CallerMemberName] string propertyName = null) =>

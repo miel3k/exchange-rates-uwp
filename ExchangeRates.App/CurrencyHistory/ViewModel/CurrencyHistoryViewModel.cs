@@ -25,7 +25,7 @@ namespace ExchangeRates.App.CurrencyHistory.ViewModel
             set => Set(ref _currencyCode, value);
         }
 
-        private DateTimeOffset _startDate = DateTime.Now;
+        private DateTimeOffset _startDate = DateTime.Now.Subtract(TimeSpan.FromDays(3));
 
         public DateTimeOffset StartDate
         {
@@ -85,7 +85,7 @@ namespace ExchangeRates.App.CurrencyHistory.ViewModel
                 {
                     Table = currencyTable;
                     //IsLoading = false;
-                    foreach (var r in currencyTable.CurrencyRates)
+                    foreach (var r in currencyTable.Rates)
                     {
                         //Rates.Add(r);
                     }

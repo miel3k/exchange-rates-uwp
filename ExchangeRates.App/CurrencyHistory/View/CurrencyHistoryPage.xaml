@@ -6,7 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    xmlns:syncfusion="using:Syncfusion.UI.Xaml.Charts">
 
     <Grid>
         <RelativePanel>
@@ -27,6 +28,20 @@
                     Text="{x:Bind ViewModel.Table.Currency, Mode=OneWay}" />
             </StackPanel>
 
+            <CommandBar
+                x:Name="mainCommandBar"
+                Margin="0,0,0,0"
+                Background="Transparent"
+                Loaded="CommandBar_Loaded"
+                RelativePanel.AlignRightWithPanel="True"
+                RelativePanel.RightOf="PageTitle">
+                <AppBarButton
+                    Click="SaveChartButton_Click"
+                    Icon="Save"
+                    IsEnabled="True"
+                    Label="Save" />
+            </CommandBar>
+
             <StackPanel
                 x:Name="DatePickers"
                 Orientation="Horizontal"
@@ -42,6 +57,16 @@
                 Date="{x:Bind ViewModel.EndDate, Mode=TwoWay}">
                 </CalendarDatePicker>
             </StackPanel>
+
+            <syncfusion:SfChart x:Name="HistoryChart" RelativePanel.Below="DatePickers">
+                <syncfusion:LineSeries  
+	                XBindingPath="EffectiveDate" 
+	                ItemsSource="{x:Bind ViewModel.Table.Rates, Mode=OneWay}" 
+	                YBindingPath="Mid"               
+	                Interior="#4A4A4A"/>
+
+            </syncfusion:SfChart>
+                
         </RelativePanel>
     </Grid>
 </Page>
