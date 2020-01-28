@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ExchangeRates.App.CurrencyHistory;
+using ExchangeRates.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -64,6 +66,12 @@ namespace ExchangeRates.App.ExchangeTable
         /// </summary>
         private async void RefreshButton_Click(object sender, RoutedEventArgs e) =>
             await ViewModel.LoadExchangeTableAsync();
+
+        private void RateItem_Click(object sender, ItemClickEventArgs e)
+        {
+            Rate item = (Rate)e.ClickedItem;
+            Frame.Navigate(typeof(CurrencyHistoryPage), item.Code);
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

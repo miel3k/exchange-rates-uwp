@@ -1,0 +1,47 @@
+﻿<Page
+    x:Class="ExchangeRates.App.CurrencyHistory.CurrencyHistoryPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ExchangeRates.App.CurrencyHistory"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <RelativePanel>
+            <StackPanel
+                x:Name="PageTitle"
+                Orientation="Horizontal">
+                <TextBlock
+                    Margin="0"
+                    Style="{StaticResource PageTitleTextBlockStyle}"
+                    Text="Currency code" />
+                <TextBlock
+                    Margin="0"
+                    Style="{StaticResource PageTitleTextBlockStyle}"
+                    Text="{x:Bind ViewModel.Table.Code, Mode=OneWay}" />
+                <TextBlock
+                    Margin="0"
+                    Style="{StaticResource PageTitleTextBlockStyle}"
+                    Text="{x:Bind ViewModel.Table.Currency, Mode=OneWay}" />
+            </StackPanel>
+
+            <StackPanel
+                x:Name="DatePickers"
+                Orientation="Horizontal"
+                RelativePanel.Below="PageTitle">
+                <CalendarDatePicker 
+                x:Name="startDate"
+                MinDate="{x:Bind ViewModel.MinDate}"
+                Date="{x:Bind ViewModel.StartDate, Mode=TwoWay}">
+                </CalendarDatePicker>
+                <CalendarDatePicker 
+                x:Name="endDate"
+                MaxDate="{x:Bind ViewModel.MaxDate}"
+                Date="{x:Bind ViewModel.EndDate, Mode=TwoWay}">
+                </CalendarDatePicker>
+            </StackPanel>
+        </RelativePanel>
+    </Grid>
+</Page>

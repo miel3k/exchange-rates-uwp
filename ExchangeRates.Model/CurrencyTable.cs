@@ -12,8 +12,6 @@ namespace ExchangeRates.Model
 
         public string Code { get; set; }
 
-        public DateTime EffectiveDate { get; set; }
-
         public List<CurrencyRate> CurrencyRates { get; set; } = new List<CurrencyRate>();
 
         public override string ToString() => Table.ToString();

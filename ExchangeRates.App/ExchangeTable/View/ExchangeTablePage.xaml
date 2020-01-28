@@ -91,7 +91,9 @@
                 RelativePanel.AlignRightWithPanel="True"
                   RelativePanel.Below="selectedDate"
                   ItemTemplate="{StaticResource RateItemTemplate}"
-                  ItemsSource="{x:Bind ViewModel.Rates, Mode=OneWay}">
+                  ItemsSource="{x:Bind ViewModel.Rates, Mode=OneWay}"
+                      IsItemClickEnabled="True"
+                      ItemClick="RateItem_Click">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment"

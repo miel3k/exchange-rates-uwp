@@ -33,7 +33,7 @@ namespace ExchangeRates.App.ExchangeTable
 
         public ObservableCollection<Rate> Rates { get; private set; } = new ObservableCollection<Rate>();
 
-        private DateTimeOffset _selectedDate = DateTime.Now.Subtract(TimeSpan.FromDays(3));
+        private DateTimeOffset _selectedDate = DateTime.Now;
 
         public DateTimeOffset SelectedDate
         {

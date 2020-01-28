@@ -120,6 +120,10 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Base\BindableViewModel.cs" />
+    <Compile Include="CurrencyHistory\View\CurrencyHistoryPage.xaml.cs">
+      <DependentUpon>CurrencyHistoryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CurrencyHistory\ViewModel\CurrencyHistoryViewModel.cs" />
     <Compile Include="ExchangeTable\View\ExchangeTablePage.xaml.cs">
       <DependentUpon>ExchangeTablePage.xaml</DependentUpon>
     </Compile>
@@ -150,6 +154,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="CurrencyHistory\View\CurrencyHistoryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ExchangeTable\View\ExchangeTablePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
