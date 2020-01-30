@@ -46,6 +46,9 @@
                     Icon="Save"
                     IsEnabled="True"
                     Label="Save" />
+                <CommandBar.Content>
+                    <Button Style="{StaticResource NavigationBackButtonNormalStyle}" VerticalAlignment="Top" Click="Back_Click"/>
+                </CommandBar.Content>
             </CommandBar>
 
             <StackPanel

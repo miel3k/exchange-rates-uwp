@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -26,7 +27,24 @@ namespace ExchangeRates.App.CurrencyHistory
     public sealed partial class CurrencyHistoryPage : Page
     {
 
-        public CurrencyHistoryPage() => InitializeComponent();
+        public CurrencyHistoryPage()
+        {
+            InitializeComponent();
+            KeyboardAccelerator GoBack = new KeyboardAccelerator
+            {
+                Key = VirtualKey.GoBack
+            };
+            GoBack.Invoked += BackInvoked;
+            KeyboardAccelerator AltLeft = new KeyboardAccelerator
+            {
+                Key = VirtualKey.Left
+            };
+            AltLeft.Invoked += BackInvoked;
+            this.KeyboardAccelerators.Add(GoBack);
+            this.KeyboardAccelerators.Add(AltLeft);
+            // ALT routes here
+            AltLeft.Modifiers = VirtualKeyModifiers.Menu;
+        }
 
         private CurrencyHistoryViewModel _viewModel;
 
@@ -64,7 +82,28 @@ namespace ExchangeRates.App.CurrencyHistory
 
         private void SaveChartButton_Click(object sender, RoutedEventArgs e)
         {
-            //HistoryChart.Save();
+            HistoryChart.Save();
+        }
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            On_BackRequested();
+        }
+
+        private bool On_BackRequested()
+        {
+            if (this.Frame.CanGoBack)
+            {
+                this.Frame.GoBack();
+                return true;
+            }
+            return false;
+        }
+
+        private void BackInvoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
+        {
+            On_BackRequested();
+            args.Handled = true;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
