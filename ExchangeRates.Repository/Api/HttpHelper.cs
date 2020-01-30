@@ -1,8 +1,10 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ExchangeRates.Repository.Api
@@ -19,6 +21,28 @@ namespace ExchangeRates.Repository.Api
             {
                 var response = await client.GetAsync(controller);
                 string json = await response.Content.ReadAsStringAsync();
+                TResult obj = JsonConvert.DeserializeObject<TResult>(json);
+                return obj;
+            }
+        }
+
+        public async Task<TResult> GetAsyncWithProgress<TResult>(string controller, Stream destination, IProgress<float> progress = null, CancellationToken cancellationToken = default)
+        {
+            using (var client = BaseClient())
+            {
+                var response = await client.GetAsync(controller, HttpCompletionOption.ResponseHeadersRead);
+                string json = await response.Content.ReadAsStringAsync();
+                var contentLength = response.Content.Headers.ContentLength;
+                Stream stream = await response.Content.ReadAsStreamAsync();
+                if (progress == null || !contentLength.HasValue)
+                {
+                    await stream.CopyToAsync(destination);
+                    return default;
+                }
+
+                var relativeProgress = new Progress<long>(totalBytes => progress.Report((float)totalBytes / contentLength.Value));
+                await stream.CopyToAsync(destination, 8, relativeProgress, cancellationToken);
+                progress.Report(1);
                 TResult obj = JsonConvert.DeserializeObject<TResult>(json);
                 return obj;
             }

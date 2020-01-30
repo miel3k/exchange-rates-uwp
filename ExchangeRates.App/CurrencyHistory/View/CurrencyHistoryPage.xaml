@@ -7,8 +7,14 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    xmlns:syncfusion="using:Syncfusion.UI.Xaml.Charts">
+    xmlns:syncfusion="using:Syncfusion.UI.Xaml.Charts"
+    xmlns:notification="using:Syncfusion.UI.Xaml.Controls.Notification">
 
+
+    <Page.Resources>
+        <local:InverseBooleanConverter x:Key="BoolToVis" />
+    </Page.Resources>
+    
     <Grid>
         <RelativePanel>
             <StackPanel
@@ -58,7 +64,10 @@
                 </CalendarDatePicker>
             </StackPanel>
 
-            <syncfusion:SfChart x:Name="HistoryChart" RelativePanel.Below="DatePickers">
+            <syncfusion:SfChart 
+                x:Name="HistoryChart" 
+                RelativePanel.Below="DatePickers"
+                Visibility="{x:Bind ViewModel.IsProgressVisible, Mode=OneWay, Converter={StaticResource BoolToVis}}">
                 <syncfusion:LineSeries  
 	                XBindingPath="EffectiveDate" 
 	                ItemsSource="{x:Bind ViewModel.Table.Rates, Mode=OneWay}" 
@@ -66,7 +75,16 @@
 	                Interior="#4A4A4A"/>
 
             </syncfusion:SfChart>
-                
+
+            <notification:SfProgressBar 
+                x:Name="ProgressBar" 
+                ProgressType="SegmentedCircular"
+                RelativePanel.Below="DatePickers"
+                Maximum="1" 
+                Minimum="0" 
+                Value="{x:Bind ViewModel.Progress ,Mode=TwoWay}"
+                Visibility="{x:Bind ViewModel.IsProgressVisible, Mode=OneWay}"/>
+
         </RelativePanel>
     </Grid>
 </Page>

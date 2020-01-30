@@ -7,6 +7,6 @@ namespace ExchangeRates.Model
 {
     public interface ICurrencyRepository
     {
-        Task<CurrencyTable> GetAsync(String code, DateTime startDate, DateTime endDate);
+        Task<CurrencyTable> GetAsync(String code, DateTime startDate, DateTime endDate, string filepath, IProgress<float> progress);
     }
 }

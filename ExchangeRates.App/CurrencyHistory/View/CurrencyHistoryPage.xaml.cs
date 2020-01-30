@@ -64,7 +64,7 @@ namespace ExchangeRates.App.CurrencyHistory
 
         private void SaveChartButton_Click(object sender, RoutedEventArgs e)
         {
-            HistoryChart.Save();
+            //HistoryChart.Save();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

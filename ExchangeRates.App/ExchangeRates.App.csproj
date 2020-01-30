@@ -120,6 +120,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Base\BindableViewModel.cs" />
+    <Compile Include="CurrencyHistory\InverseBooleanConverter.cs" />
     <Compile Include="CurrencyHistory\View\CurrencyHistoryPage.xaml.cs">
       <DependentUpon>CurrencyHistoryPage.xaml</DependentUpon>
     </Compile>
@@ -180,6 +181,9 @@
     </PackageReference>
     <PackageReference Include="Syncfusion.SfChart.UWP">
       <Version>17.4.0.44</Version>
+    </PackageReference>
+    <PackageReference Include="Syncfusion.SfProgressBar.UWP">
+      <Version>17.4.0.46</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
