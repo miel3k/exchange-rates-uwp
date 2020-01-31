@@ -3,6 +3,7 @@ using ExchangeRates.Model;
 using Microsoft.Toolkit.Uwp.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,12 +19,12 @@ namespace ExchangeRates.App.CurrencyHistory.ViewModel
             Task.Run(LoadCurrencyTableAsync);
         }
 
-        private bool _isProgressVisible = true;
+        private bool _isChartVisible = false;
 
-        public bool IsProgressVisible
+        public bool IsChartVisible
         {
-            get => _isProgressVisible;
-            set => Set(ref _isProgressVisible, value);
+            get => _isChartVisible;
+            set => Set(ref _isChartVisible, value);
         }
 
         private float _progress = 0.0f;
@@ -97,7 +98,7 @@ namespace ExchangeRates.App.CurrencyHistory.ViewModel
             await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
             {
                 Progress = 0.0f;
-                IsProgressVisible = true;
+                IsChartVisible = false;
             });
             bool fileExists = await IsFilePresent("file.txt");
             if (fileExists)
@@ -117,7 +118,7 @@ namespace ExchangeRates.App.CurrencyHistory.ViewModel
             {
                 await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
                 {
-                    IsProgressVisible = false;
+                    IsChartVisible = true;
                     Table = currencyTable;
                 });
             }
@@ -129,7 +130,9 @@ namespace ExchangeRates.App.CurrencyHistory.ViewModel
         {
             await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
             {
-                Progress = _masterProgress;
+                var f = (float)_masterProgress*100;
+                var i = (int)f;
+                Progress = (float)i;
             });
         }
 

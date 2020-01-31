@@ -16,20 +16,20 @@
     </Page.Resources>
     
     <Grid>
-        <RelativePanel>
+        <RelativePanel ManipulationMode="TranslateX" ManipulationDelta="Grid_ManipulationDelta" ManipulationCompleted="Grid_ManipulationCompleted">
             <StackPanel
                 x:Name="PageTitle"
                 Orientation="Horizontal">
+                <Button 
+                    Margin="16,16,16,16"
+                    Style="{StaticResource NavigationBackButtonNormalStyle}" 
+                    Click="Back_Click"/>
                 <TextBlock
-                    Margin="0"
-                    Style="{StaticResource PageTitleTextBlockStyle}"
-                    Text="Currency code" />
-                <TextBlock
-                    Margin="0"
+                    Margin="16,16,16,16"
                     Style="{StaticResource PageTitleTextBlockStyle}"
                     Text="{x:Bind ViewModel.Table.Code, Mode=OneWay}" />
                 <TextBlock
-                    Margin="0"
+                    Margin="16,16,16,16"
                     Style="{StaticResource PageTitleTextBlockStyle}"
                     Text="{x:Bind ViewModel.Table.Currency, Mode=OneWay}" />
             </StackPanel>
@@ -46,31 +46,38 @@
                     Icon="Save"
                     IsEnabled="True"
                     Label="Save" />
-                <CommandBar.Content>
-                    <Button Style="{StaticResource NavigationBackButtonNormalStyle}" VerticalAlignment="Top" Click="Back_Click"/>
-                </CommandBar.Content>
             </CommandBar>
 
             <StackPanel
                 x:Name="DatePickers"
                 Orientation="Horizontal"
+                RelativePanel.AlignHorizontalCenterWithPanel="True"
                 RelativePanel.Below="PageTitle">
+                <TextBlock
+                    Margin="16,16,16,16"
+                    Style="{StaticResource PageTitleTextBlockStyle}"
+                    Text="From:" />
                 <CalendarDatePicker 
-                x:Name="startDate"
-                MinDate="{x:Bind ViewModel.MinDate}"
-                Date="{x:Bind ViewModel.StartDate, Mode=TwoWay}">
-                </CalendarDatePicker>
+                    x:Name="startDate"
+                    Margin="16,16,16,16"
+                    MinDate="{x:Bind ViewModel.MinDate}"
+                    IsEnabled="{x:Bind ViewModel.IsChartVisible, Mode=OneWay}"
+                    Date="{x:Bind ViewModel.StartDate, Mode=TwoWay}"/>
+                <TextBlock
+                    Margin="16,16,16,16"
+                    Style="{StaticResource PageTitleTextBlockStyle}"
+                    Text="To:" />
                 <CalendarDatePicker 
-                x:Name="endDate"
-                MaxDate="{x:Bind ViewModel.MaxDate}"
-                Date="{x:Bind ViewModel.EndDate, Mode=TwoWay}">
-                </CalendarDatePicker>
+                    x:Name="endDate"
+                    MaxDate="{x:Bind ViewModel.MaxDate}"
+                    IsEnabled="{x:Bind ViewModel.IsChartVisible, Mode=OneWay}"
+                    Date="{x:Bind ViewModel.EndDate, Mode=TwoWay}"/>
             </StackPanel>
 
             <syncfusion:SfChart 
                 x:Name="HistoryChart" 
                 RelativePanel.Below="DatePickers"
-                Visibility="{x:Bind ViewModel.IsProgressVisible, Mode=OneWay, Converter={StaticResource BoolToVis}}">
+                Visibility="{x:Bind ViewModel.IsChartVisible, Mode=OneWay}">
                 <syncfusion:LineSeries  
 	                XBindingPath="EffectiveDate" 
 	                ItemsSource="{x:Bind ViewModel.Table.Rates, Mode=OneWay}" 
@@ -83,10 +90,13 @@
                 x:Name="ProgressBar" 
                 ProgressType="SegmentedCircular"
                 RelativePanel.Below="DatePickers"
-                Maximum="1" 
+                RelativePanel.AlignBottomWithPanel="True"
+                RelativePanel.AlignHorizontalCenterWithPanel="True"
+                RelativePanel.AlignVerticalCenterWithPanel="True"
+                Maximum="100" 
                 Minimum="0" 
                 Value="{x:Bind ViewModel.Progress ,Mode=TwoWay}"
-                Visibility="{x:Bind ViewModel.IsProgressVisible, Mode=OneWay}"/>
+                Visibility="{x:Bind ViewModel.IsChartVisible, Mode=OneWay, Converter={StaticResource BoolToVis}}"/>
 
         </RelativePanel>
     </Grid>

@@ -90,6 +90,16 @@ namespace ExchangeRates.App.CurrencyHistory
             On_BackRequested();
         }
 
+        private void Grid_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
+        {
+            On_BackRequested();
+        }
+
+        private void Grid_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
+        {
+            e.Handled = true;
+        }
+
         private bool On_BackRequested()
         {
             if (this.Frame.CanGoBack)
@@ -110,5 +120,6 @@ namespace ExchangeRates.App.CurrencyHistory
 
         private void OnPropertyChanged([CallerMemberName] string propertyName = null) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
     }
 }

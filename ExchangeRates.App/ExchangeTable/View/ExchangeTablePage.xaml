@@ -58,15 +58,15 @@
                 x:Name="PageTitle"
                 Orientation="Horizontal">
                 <TextBlock
-                    Margin="0"
+                    Margin="16,0,16,0"
                     Style="{StaticResource PageTitleTextBlockStyle}"
-                    Text="Exchange Rates" />
+                    Text="Exchange Table:" />
                 <TextBlock
-                    Margin="0"
+                    Margin="16,0,16,0"
                     Style="{StaticResource PageTitleTextBlockStyle}"
                     Text="{x:Bind ViewModel.ExchangeTable.No, Mode=OneWay}" />
                 <TextBlock
-                    Margin="0"
+                    Margin="16,0,16,0"
                     Style="{StaticResource PageTitleTextBlockStyle}"
                     Text="{x:Bind ViewModel.ExchangeTable.EffectiveDate, Mode=OneWay}" />
             </StackPanel>
@@ -87,8 +87,10 @@
             
             <CalendarDatePicker 
                 x:Name="selectedDate"
+                Margin="0,24,0,24"
                 VerticalAlignment="Center"
                 RelativePanel.Below="PageTitle"
+                RelativePanel.AlignHorizontalCenterWithPanel="True"
                 MaxDate="{x:Bind ViewModel.MaxDate}"
                 Date="{x:Bind ViewModel.SelectedDate, Mode=TwoWay}">
             </CalendarDatePicker>
@@ -108,7 +110,7 @@
                         <Setter Property="Margin"
                             Value="0,0,0,0" />
                         <Setter Property="Padding"
-                            Value="0,0,0,0" />
+                            Value="16,16,16,16" />
                         <Setter Property="MinHeight"
                             Value="50" />
                         <Setter Property="MinWidth"
