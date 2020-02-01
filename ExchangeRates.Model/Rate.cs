@@ -12,7 +12,7 @@ namespace ExchangeRates.Model
 
         public decimal Mid { get; set; }
 
-        public string Uri { get => "https://www.countryflags.io/"+Code+"/flat/64.png"; }
+        public string Uri { get => "https://www.countryflags.io/"+Code.Substring(0,2)+"/flat/64.png"; }
 
         public override string ToString() => $"{Currency} {Code} {Mid}";
 
