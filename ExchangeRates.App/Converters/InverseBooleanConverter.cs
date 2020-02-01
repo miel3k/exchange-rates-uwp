@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
-namespace ExchangeRates.App.CurrencyHistory
+namespace ExchangeRates.App.Converters
 {
     public class InverseBooleanConverter : IValueConverter
     {

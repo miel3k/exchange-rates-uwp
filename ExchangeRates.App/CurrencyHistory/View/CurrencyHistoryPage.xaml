@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:ExchangeRates.App.CurrencyHistory"
+    xmlns:converters="using:ExchangeRates.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
@@ -12,7 +13,7 @@
 
 
     <Page.Resources>
-        <local:InverseBooleanConverter x:Key="BoolToVis" />
+        <converters:InverseBooleanConverter x:Key="BoolToVis" />
     </Page.Resources>
 
     <Grid ManipulationMode="TranslateX" 
@@ -92,12 +93,25 @@
             <syncfusion:SfChart 
                 x:Name="HistoryChart" 
                 RelativePanel.Below="DatePickers"
+                Margin="32,8,32,8"
                 Visibility="{x:Bind ViewModel.IsChartVisible, Mode=OneWay}">
                 <syncfusion:LineSeries  
 	                XBindingPath="EffectiveDate" 
+                    Palette="BlueChrome"
 	                ItemsSource="{x:Bind ViewModel.Table.Rates, Mode=OneWay}" 
 	                YBindingPath="Mid"               
 	                Interior="#4A4A4A"/>
+                <syncfusion:SfChart.PrimaryAxis>
+
+                    <syncfusion:DateTimeAxis Header="Date" IntervalType="Days" Interval="1" LabelFormat="dd-MM-yyyy"/>
+
+                </syncfusion:SfChart.PrimaryAxis>
+
+                <syncfusion:SfChart.SecondaryAxis>
+
+                    <syncfusion:NumericalAxis Header="Rate (zł)"/>
+
+                </syncfusion:SfChart.SecondaryAxis>
 
             </syncfusion:SfChart>
 

@@ -21,8 +21,14 @@ namespace ExchangeRates.Repository.Api
             {
                 var response = await client.GetAsync(controller);
                 string json = await response.Content.ReadAsStringAsync();
-                TResult obj = JsonConvert.DeserializeObject<TResult>(json);
-                return obj;
+                if(response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    TResult obj = JsonConvert.DeserializeObject<TResult>(json);
+                    return obj;
+                } else
+                {
+                    return default;
+                }
             }
         }
 

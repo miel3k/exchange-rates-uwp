@@ -118,7 +118,7 @@ namespace ExchangeRates.App.CurrencyHistory.ViewModel
             //    StorageFile oldFile = await ApplicationData.Current.LocalFolder.GetFileAsync("file.txt");
             //    await oldFile.DeleteAsync();
             //}
-            StorageFile newFile = await ApplicationData.Current.LocalFolder.CreateFileAsync(Guid.NewGuid()+".txt");
+            StorageFile newFile = await ApplicationData.Current.LocalFolder.CreateFileAsync(Guid.NewGuid() + ".txt");
             CurrencyTable currencyTable = await App.Repository.Currency.GetAsync(
                 _currencyCode,
                 new DateTime(_startDate.Ticks),
@@ -126,14 +126,15 @@ namespace ExchangeRates.App.CurrencyHistory.ViewModel
                 newFile.Path,
                 this
             );
-            if (currencyTable != null)
+
+            await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
             {
-                await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+                IsChartVisible = true;
+                if (currencyTable != null)
                 {
-                    IsChartVisible = true;
                     Table = currencyTable;
-                });
-            }
+                }
+            });
         }
 
         private float _masterProgress = 0.0f;

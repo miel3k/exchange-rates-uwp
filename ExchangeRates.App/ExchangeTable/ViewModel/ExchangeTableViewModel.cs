@@ -16,10 +16,10 @@ namespace ExchangeRates.App.ExchangeTable
     {
         public ExchangeTableViewModel()
         {
-            var tableDate =  localSettings.Values["TableDate"];
-            if(tableDate != null)
+            var tableDate = localSettings.Values["TableDate"];
+            if (tableDate != null)
             {
-                SelectedDate = (DateTimeOffset) tableDate;
+                SelectedDate = (DateTimeOffset)tableDate;
             }
             Task.Run(LoadExchangeTableAsync);
         }
@@ -42,6 +42,14 @@ namespace ExchangeRates.App.ExchangeTable
             set => Set(ref _isLoading, value);
         }
 
+        private bool _isDataEmptyMessageVisible = false;
+
+        public bool IsDataEmptyMessageVisible
+        {
+            get => _isDataEmptyMessageVisible;
+            set => Set(ref _isDataEmptyMessageVisible, value);
+        }
+
         private Table _exchangeTable;
 
         public Table ExchangeTable
@@ -59,7 +67,6 @@ namespace ExchangeRates.App.ExchangeTable
             get => _selectedDate;
             set
             {
-                //TODO Check if is Sunday etc. or inform user
                 Set(ref _selectedDate, value);
                 localSettings.Values["TableDate"] = value;
                 Task.Run(LoadExchangeTableAsync);
@@ -77,25 +84,31 @@ namespace ExchangeRates.App.ExchangeTable
             {
                 IsLoading = true;
                 IsRefreshButtonVisible = false;
+                IsDataEmptyMessageVisible = true;
                 Rates.Clear();
             });
 
             var tables = await App.Repository.Tables.GetAsync(new DateTime(SelectedDate.Ticks));
-            var table = tables.First();
 
-            if (table != null)
+            await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
             {
-                await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+                IsLoading = false;
+                IsRefreshButtonVisible = true;
+                if (tables != null)
                 {
+                    IsDataEmptyMessageVisible = true;
+                    var table = tables.FirstOrDefault();
                     ExchangeTable = table;
-                    IsLoading = false;
-                    IsRefreshButtonVisible = true;
                     foreach (var r in table.Rates)
                     {
                         Rates.Add(r);
                     }
-                });
-            }
+                }
+                else
+                {
+                    IsDataEmptyMessageVisible = false;
+                }
+            });
         }
     }
 }
