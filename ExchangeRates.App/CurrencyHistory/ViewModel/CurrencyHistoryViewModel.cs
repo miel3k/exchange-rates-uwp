@@ -2,10 +2,6 @@
 using ExchangeRates.Model;
 using Microsoft.Toolkit.Uwp.Helpers;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 
@@ -74,7 +70,6 @@ namespace ExchangeRates.App.CurrencyHistory.ViewModel
             get => _endDate;
             set
             {
-                //TODO Check if is Sunday etc. or inform user
                 Set(ref _endDate, value);
                 localSettings.Values["ToDate"] = value;
             }

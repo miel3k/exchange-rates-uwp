@@ -88,7 +88,7 @@ namespace ExchangeRates.App.CurrencyHistory
             int dateComparison = DateTime.Compare(fromDate.Date, toDate.Date);
             if (dateComparison >= 0)
             {
-                inAppNotification.Show("Incorrect dates period provided!", 3000);
+                inAppNotification.Show("Incorrect period provided!", 3000);
                 return;
             }
             await ViewModel.LoadCurrencyTableAsync();

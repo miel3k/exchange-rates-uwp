@@ -130,7 +130,8 @@
 
             <controls:InAppNotification 
                 x:Name="inAppNotification"
-                />
+                RelativePanel.AlignBottomWithPanel="True"
+                RelativePanel.AlignHorizontalCenterWithPanel="True" />
 
         </RelativePanel>
     </Grid>
