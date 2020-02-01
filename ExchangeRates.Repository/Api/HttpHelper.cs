@@ -49,7 +49,7 @@ namespace ExchangeRates.Repository.Api
                     }
 
                     var relativeProgress = new Progress<long>(totalBytes => progress.Report((float)totalBytes / contentLength.Value));
-                    await stream.CopyToAsync(destination, 8, relativeProgress, cancellationToken);
+                    await stream.CopyToAsync(destination, 64, relativeProgress, cancellationToken);
                     progress.Report(1);
                     TResult obj = JsonConvert.DeserializeObject<TResult>(json);
                     return obj;
