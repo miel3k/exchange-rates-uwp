@@ -1,4 +1,5 @@
-﻿using ExchangeRates.App.ExchangeTable;
+﻿using ExchangeRates.App.CurrencyHistory;
+using ExchangeRates.App.ExchangeTable;
 using ExchangeRates.Repository;
 using ExchangeRates.Repository.Remote;
 using System;
@@ -76,7 +77,16 @@ namespace ExchangeRates.App
                 // Ensure the current window is active
                 Window.Current.Activate();
             }
-            rootFrame.Navigate(typeof(ExchangeTablePage));
+            Windows.Storage.ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            var navigationState = localSettings.Values["NavigationState"];
+            if (navigationState != null)
+            {
+                rootFrame.SetNavigationState((string)navigationState);
+            }
+            else
+            {
+                rootFrame.Navigate(typeof(ExchangeTablePage));
+            }
         }
 
         /// <summary>
@@ -99,7 +109,16 @@ namespace ExchangeRates.App
         private void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
-            //TODO: Save application state and stop any background activity
+            Windows.Storage.ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            if (Window.Current.Content is Frame frame)
+            {
+                string currentNavigationState = frame.GetNavigationState();
+                localSettings.Values["NavigationState"] = currentNavigationState;
+            }
+            else
+            {
+                localSettings.Values.Remove("NavigationState");
+            }
             deferral.Complete();
         }
 

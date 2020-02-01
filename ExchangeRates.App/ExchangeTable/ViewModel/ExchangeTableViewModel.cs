@@ -8,12 +8,23 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Storage;
 
 namespace ExchangeRates.App.ExchangeTable
 {
     public class ExchangeTableViewModel : BindableViewModel
     {
-        public ExchangeTableViewModel() => Task.Run(LoadExchangeTableAsync);
+        public ExchangeTableViewModel()
+        {
+            var tableDate =  localSettings.Values["TableDate"];
+            if(tableDate != null)
+            {
+                SelectedDate = (DateTimeOffset) tableDate;
+            }
+            Task.Run(LoadExchangeTableAsync);
+        }
+
+        private readonly ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
 
         private bool _isLoading = false;
 
@@ -42,6 +53,7 @@ namespace ExchangeRates.App.ExchangeTable
             {
                 //TODO Check if is Sunday etc. or inform user
                 Set(ref _selectedDate, value);
+                localSettings.Values["TableDate"] = value;
                 Task.Run(LoadExchangeTableAsync);
             }
         }

@@ -16,8 +16,20 @@ namespace ExchangeRates.App.CurrencyHistory.ViewModel
         public CurrencyHistoryViewModel(string currencyCode)
         {
             CurrencyCode = currencyCode;
+            var fromDate = localSettings.Values["FromDate"];
+            if (fromDate != null)
+            {
+                StartDate = (DateTimeOffset)fromDate;
+            }
+            var toDate = localSettings.Values["ToDate"];
+            if (toDate != null)
+            {
+                EndDate = (DateTimeOffset)toDate;
+            }
             Task.Run(LoadCurrencyTableAsync);
         }
+
+        private readonly ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
 
         private bool _isChartVisible = false;
 
@@ -52,6 +64,7 @@ namespace ExchangeRates.App.CurrencyHistory.ViewModel
             {
                 //TODO Check if is Sunday etc. or inform user
                 Set(ref _startDate, value);
+                localSettings.Values["FromDate"] = value;
                 Task.Run(LoadCurrencyTableAsync);
             }
         }
@@ -65,6 +78,7 @@ namespace ExchangeRates.App.CurrencyHistory.ViewModel
             {
                 //TODO Check if is Sunday etc. or inform user
                 Set(ref _endDate, value);
+                localSettings.Values["ToDate"] = value;
                 Task.Run(LoadCurrencyTableAsync);
             }
         }
@@ -130,7 +144,7 @@ namespace ExchangeRates.App.CurrencyHistory.ViewModel
         {
             await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
             {
-                var f = (float)_masterProgress*100;
+                var f = (float)_masterProgress * 100;
                 var i = (int)f;
                 Progress = (float)i;
             });
