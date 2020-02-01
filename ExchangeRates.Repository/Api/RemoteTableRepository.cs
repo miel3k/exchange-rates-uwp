@@ -2,7 +2,6 @@
 using ExchangeRates.Repository.Api;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ExchangeRates.Repository.Remote
@@ -11,12 +10,9 @@ namespace ExchangeRates.Repository.Remote
     {
         private readonly HttpHelper _http;
 
-        public RemoteTableRepository(string baseUrl)
-        {
-            _http = new HttpHelper(baseUrl);
-        }
+        public RemoteTableRepository(string baseUrl) => _http = new HttpHelper(baseUrl);
 
         public async Task<IEnumerable<Table>> GetAsync(DateTime date) =>
-            await _http.GetAsync<IEnumerable<Table>>($"exchangeRates/tables/a/{date.ToString(@"yyyy-MM-dd")}");
+            await _http.GetAsync<IEnumerable<Table>>($"exchangeRates/tables/a/{date.ToString(Constants.DatePattern)}");
     }
 }

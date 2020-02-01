@@ -73,6 +73,7 @@
                     FirstDayOfWeek="Monday"
                     Margin="8,8,8,8"
                     MinDate="{x:Bind ViewModel.MinDate}"
+                    MaxDate="{x:Bind ViewModel.MaxDate}"
                     IsEnabled="{x:Bind ViewModel.IsChartVisible, Mode=OneWay}"
                     Date="{x:Bind ViewModel.StartDate, Mode=TwoWay}"
                     DateFormat="{}{day.integer} {month.full} {year.full}"/>
@@ -85,6 +86,7 @@
                     x:Name="endDate"
                     FirstDayOfWeek="Monday"
                     Margin="8,8,8,8"
+                    MinDate="{x:Bind ViewModel.MinDate}"
                     MaxDate="{x:Bind ViewModel.MaxDate}"
                     IsEnabled="{x:Bind ViewModel.IsChartVisible, Mode=OneWay}"
                     Date="{x:Bind ViewModel.EndDate, Mode=TwoWay}"

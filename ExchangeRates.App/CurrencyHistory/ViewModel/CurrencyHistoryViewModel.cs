@@ -2,6 +2,7 @@
 using ExchangeRates.Model;
 using Microsoft.Toolkit.Uwp.Helpers;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Storage;
 
@@ -107,12 +108,14 @@ namespace ExchangeRates.App.CurrencyHistory.ViewModel
                 IsChartVisible = false;
             });
             StorageFile newFile = await ApplicationData.Current.LocalFolder.CreateFileAsync(Guid.NewGuid() + ".txt");
+            CancellationToken cancellationToken = new CancellationToken();
             CurrencyTable currencyTable = await App.Repository.Currency.GetAsync(
                 _currencyCode,
                 new DateTime(_startDate.Ticks),
                 new DateTime(_endDate.Ticks),
                 newFile.Path,
-                this
+                this,
+                cancellationToken
             );
             await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
             {

@@ -123,6 +123,6 @@ namespace ExchangeRates.App
         }
 
         public static void SetupRepository() =>
-            Repository = new RemoteNbpRepository("http://api.nbp.pl/api/");
+            Repository = new RemoteNbpRepository(Constants.NbpApiUrl);
     }
 }

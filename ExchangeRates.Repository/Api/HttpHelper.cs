@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Text;
@@ -12,26 +11,25 @@ namespace ExchangeRates.Repository.Api
     internal class HttpHelper
     {
         private readonly string _baseUrl;
-
         public HttpHelper(string baseUrl) => _baseUrl = baseUrl;
-
+        private HttpClient BaseClient() => new HttpClient { BaseAddress = new Uri(_baseUrl) };
         public async Task<TResult> GetAsync<TResult>(string controller)
         {
             using (var client = BaseClient())
             {
                 var response = await client.GetAsync(controller);
                 string json = await response.Content.ReadAsStringAsync();
-                if(response.StatusCode == System.Net.HttpStatusCode.OK)
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     TResult obj = JsonConvert.DeserializeObject<TResult>(json);
                     return obj;
-                } else
+                }
+                else
                 {
                     return default;
                 }
             }
         }
-
         public async Task<TResult> GetAsyncWithProgress<TResult>(string controller, Stream destination, IProgress<float> progress = null, CancellationToken cancellationToken = default)
         {
             using (var client = BaseClient())
@@ -47,9 +45,8 @@ namespace ExchangeRates.Repository.Api
                         await stream.CopyToAsync(destination);
                         return default;
                     }
-
                     var relativeProgress = new Progress<long>(totalBytes => progress.Report((float)totalBytes / contentLength.Value));
-                    await stream.CopyToAsync(destination, 64, relativeProgress, cancellationToken);
+                    await stream.CopyToAsync(destination, Constants.DefaultBufferSize, relativeProgress, cancellationToken);
                     progress.Report(1);
                     TResult obj = JsonConvert.DeserializeObject<TResult>(json);
                     return obj;
@@ -60,9 +57,6 @@ namespace ExchangeRates.Repository.Api
                 }
             }
         }
-
-        private HttpClient BaseClient() => new HttpClient { BaseAddress = new Uri(_baseUrl) };
-
         private class JsonStringContent : StringContent
         {
             public JsonStringContent(object obj)
