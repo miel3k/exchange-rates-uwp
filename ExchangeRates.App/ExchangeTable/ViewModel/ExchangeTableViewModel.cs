@@ -2,11 +2,8 @@
 using ExchangeRates.Model;
 using Microsoft.Toolkit.Uwp.Helpers;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 
@@ -87,9 +84,7 @@ namespace ExchangeRates.App.ExchangeTable
                 IsDataEmptyMessageVisible = true;
                 Rates.Clear();
             });
-
             var tables = await App.Repository.Tables.GetAsync(new DateTime(SelectedDate.Ticks));
-
             await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
             {
                 IsLoading = false;

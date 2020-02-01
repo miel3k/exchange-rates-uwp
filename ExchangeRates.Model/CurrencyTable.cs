@@ -8,6 +8,7 @@ namespace ExchangeRates.Model
         public string Currency { get; set; }
         public string Code { get; set; }
         public List<CurrencyRate> Rates { get; set; } = new List<CurrencyRate>();
+
         public override string ToString() => Table.ToString();
     }
 }

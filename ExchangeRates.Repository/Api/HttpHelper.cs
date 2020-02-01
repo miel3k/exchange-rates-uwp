@@ -13,6 +13,7 @@ namespace ExchangeRates.Repository.Api
         private readonly string _baseUrl;
         public HttpHelper(string baseUrl) => _baseUrl = baseUrl;
         private HttpClient BaseClient() => new HttpClient { BaseAddress = new Uri(_baseUrl) };
+
         public async Task<TResult> GetAsync<TResult>(string controller)
         {
             using (var client = BaseClient())
@@ -30,6 +31,7 @@ namespace ExchangeRates.Repository.Api
                 }
             }
         }
+
         public async Task<TResult> GetAsyncWithProgress<TResult>(string controller, Stream destination, IProgress<float> progress = null, CancellationToken cancellationToken = default)
         {
             using (var client = BaseClient())
@@ -57,6 +59,7 @@ namespace ExchangeRates.Repository.Api
                 }
             }
         }
+
         private class JsonStringContent : StringContent
         {
             public JsonStringContent(object obj)

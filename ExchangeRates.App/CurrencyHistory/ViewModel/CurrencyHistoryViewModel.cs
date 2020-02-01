@@ -36,6 +36,8 @@ namespace ExchangeRates.App.CurrencyHistory.ViewModel
             set => Set(ref _isChartVisible, value);
         }
 
+        private float _masterProgress = 0.0f;
+
         private float _progress = 0.0f;
 
         public float Progress
@@ -127,15 +129,13 @@ namespace ExchangeRates.App.CurrencyHistory.ViewModel
             });
         }
 
-        private float _masterProgress = 0.0f;
-
         public async Task RefreshProgress()
         {
             await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
             {
-                var f = (float)_masterProgress * 100;
+                var f = _masterProgress * 100;
                 var i = (int)f;
-                Progress = (float)i;
+                Progress = i;
             });
         }
 

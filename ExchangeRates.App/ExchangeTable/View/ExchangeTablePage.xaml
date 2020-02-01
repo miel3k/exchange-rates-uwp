@@ -12,15 +12,16 @@
 
     <Page.Resources>
 
-        <DataTemplate x:Key="RateItemTemplate"
-                      x:DataType="model:Rate">
+        <DataTemplate 
+            x:Key="RateItemTemplate"
+            x:DataType="model:Rate">
             <Grid HorizontalAlignment="Stretch">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="50" />
-                    <ColumnDefinition Width="200" />
-                    <ColumnDefinition Width="80" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="120" />
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="120"/>
                 </Grid.ColumnDefinitions>
                 <Border
                     Grid.ColumnSpan="5"
@@ -32,25 +33,26 @@
                         <BitmapImage UriSource="{x:Bind Uri}" />
                     </Image.Source>
                 </Image>
-                <TextBlock Grid.Column="1"
-                           Margin="16,0,0,0"
-                           Padding="0,0,0,0"
-                           Text="{x:Bind Currency}"
-                           VerticalAlignment="Center"/>
+                <TextBlock 
+                    Grid.Column="1"
+                    Margin="16,0,0,0"
+                    Padding="0,0,0,0"
+                    Text="{x:Bind Currency}"
+                    VerticalAlignment="Center"/>
                 <TextBlock
                     Grid.Column="2"
                     Margin="0,0,0,0"
                     Padding="0,0,0,0"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
-                    Text="{x:Bind Code}" />
+                    Text="{x:Bind Code}"/>
                 <TextBlock
                     Grid.Column="4"
                     Margin="8,0,0,0"
                     Padding="0,0,0,0"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
-                    Text="{x:Bind sys:String.Format('{0} PLN', Mid)}" />
+                    Text="{x:Bind sys:String.Format('{0} PLN', Mid)}"/>
             </Grid>
         </DataTemplate>
 
@@ -84,7 +86,7 @@
                     Click="RefreshButton_Click"
                     Icon="Refresh"
                     IsEnabled="{x:Bind ViewModel.IsRefreshButtonVisible, Mode=OneWay}"
-                    Label="Refresh" />
+                    Label="Refresh"/>
             </CommandBar>
             
             <CalendarDatePicker 
@@ -120,27 +122,33 @@
                 RelativePanel.AlignLeftWithPanel="True"
                 RelativePanel.AlignRightWithPanel="True"
                 RelativePanel.Below="selectedDate"/>
-            <ListView x:Name="RatesListView"
-                  RelativePanel.AlignBottomWithPanel="True"
-                   RelativePanel.AlignLeftWithPanel="True"
+            <ListView 
+                x:Name="RatesListView"
+                RelativePanel.AlignBottomWithPanel="True"
+                RelativePanel.AlignLeftWithPanel="True"
                 RelativePanel.AlignRightWithPanel="True"
-                  RelativePanel.Below="selectedDate"
-                  ItemTemplate="{StaticResource RateItemTemplate}"
-                  ItemsSource="{x:Bind ViewModel.Rates, Mode=OneWay}"
-                      IsItemClickEnabled="True"
-                      ItemClick="RateItem_Click">
+                RelativePanel.Below="selectedDate"
+                ItemTemplate="{StaticResource RateItemTemplate}"
+                ItemsSource="{x:Bind ViewModel.Rates, Mode=OneWay}"
+                IsItemClickEnabled="True"
+                ItemClick="RateItem_Click">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
-                        <Setter Property="HorizontalContentAlignment"
-                            Value="Stretch" />
-                        <Setter Property="Margin"
-                            Value="0,0,0,0" />
-                        <Setter Property="Padding"
-                            Value="16,16,16,16" />
-                        <Setter Property="MinHeight"
-                            Value="50" />
-                        <Setter Property="MinWidth"
-                            Value="50" />
+                        <Setter 
+                            Property="HorizontalContentAlignment"
+                            Value="Stretch"/>
+                        <Setter 
+                            Property="Margin"
+                            Value="0,0,0,0"/>
+                        <Setter 
+                            Property="Padding"
+                            Value="16,16,16,16"/>
+                        <Setter 
+                            Property="MinHeight"
+                            Value="50"/>
+                        <Setter 
+                            Property="MinWidth"
+                            Value="50"/>
                     </Style>
                 </ListView.ItemContainerStyle>
             </ListView>

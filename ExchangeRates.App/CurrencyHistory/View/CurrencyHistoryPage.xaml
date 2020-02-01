@@ -12,15 +12,15 @@
     xmlns:notification="using:Syncfusion.UI.Xaml.Controls.Notification"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls">
 
-
     <Page.Resources>
         <converters:InverseBooleanConverter x:Key="BoolToVis" />
     </Page.Resources>
 
-    <Grid ManipulationMode="TranslateX" 
-          ManipulationDelta="Grid_ManipulationDelta" 
-          ManipulationCompleted="Grid_ManipulationCompleted"
-          Background="Transparent">
+    <Grid 
+        ManipulationMode="TranslateX" 
+        ManipulationDelta="Grid_ManipulationDelta" 
+        ManipulationCompleted="Grid_ManipulationCompleted"
+        Background="Transparent">
         <RelativePanel >
             <StackPanel
                 x:Name="PageTitle"
@@ -105,17 +105,11 @@
 	                YBindingPath="Mid"               
 	                Interior="#4A4A4A"/>
                 <syncfusion:SfChart.PrimaryAxis>
-
                     <syncfusion:DateTimeAxis Header="Date" IntervalType="Days" Interval="1" LabelFormat="dd-MM-yyyy"/>
-
                 </syncfusion:SfChart.PrimaryAxis>
-
                 <syncfusion:SfChart.SecondaryAxis>
-
                     <syncfusion:NumericalAxis Header="Rate (zł)"/>
-
                 </syncfusion:SfChart.SecondaryAxis>
-
             </syncfusion:SfChart>
 
             <notification:SfProgressBar 
