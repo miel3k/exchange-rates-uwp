@@ -9,7 +9,8 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     xmlns:syncfusion="using:Syncfusion.UI.Xaml.Charts"
-    xmlns:notification="using:Syncfusion.UI.Xaml.Controls.Notification">
+    xmlns:notification="using:Syncfusion.UI.Xaml.Controls.Notification"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls">
 
 
     <Page.Resources>
@@ -126,6 +127,10 @@
                 Minimum="0" 
                 Value="{x:Bind ViewModel.Progress ,Mode=TwoWay}"
                 Visibility="{x:Bind ViewModel.IsChartVisible, Mode=OneWay, Converter={StaticResource BoolToVis}}"/>
+
+            <controls:InAppNotification 
+                x:Name="inAppNotification"
+                />
 
         </RelativePanel>
     </Grid>

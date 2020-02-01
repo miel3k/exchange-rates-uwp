@@ -62,7 +62,6 @@ namespace ExchangeRates.App.CurrencyHistory.ViewModel
             get => _startDate;
             set
             {
-                //TODO Check if is Sunday etc. or inform user
                 Set(ref _startDate, value);
                 localSettings.Values["FromDate"] = value;
             }
@@ -112,12 +111,6 @@ namespace ExchangeRates.App.CurrencyHistory.ViewModel
                 Progress = 0.0f;
                 IsChartVisible = false;
             });
-            //bool fileExists = await IsFilePresent("file.txt");
-            //if (fileExists)
-            //{
-            //    StorageFile oldFile = await ApplicationData.Current.LocalFolder.GetFileAsync("file.txt");
-            //    await oldFile.DeleteAsync();
-            //}
             StorageFile newFile = await ApplicationData.Current.LocalFolder.CreateFileAsync(Guid.NewGuid() + ".txt");
             CurrencyTable currencyTable = await App.Repository.Currency.GetAsync(
                 _currencyCode,
@@ -126,7 +119,6 @@ namespace ExchangeRates.App.CurrencyHistory.ViewModel
                 newFile.Path,
                 this
             );
-
             await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
             {
                 IsChartVisible = true;

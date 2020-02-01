@@ -81,8 +81,18 @@ namespace ExchangeRates.App.CurrencyHistory
             }
         }
 
-        private async void RefreshButton_Click(object sender, RoutedEventArgs e) =>
+        private async void RefreshButton_Click(object sender, RoutedEventArgs e)
+        {
+            DateTime fromDate = new DateTime(ViewModel.StartDate.Ticks);
+            DateTime toDate = new DateTime(ViewModel.EndDate.Ticks);
+            int dateComparison = DateTime.Compare(fromDate.Date, toDate.Date);
+            if (dateComparison >= 0)
+            {
+                inAppNotification.Show("Incorrect dates period provided!", 3000);
+                return;
+            }
             await ViewModel.LoadCurrencyTableAsync();
+        }
 
         private void SaveChartButton_Click(object sender, RoutedEventArgs e)
         {

@@ -37,20 +37,27 @@ namespace ExchangeRates.Repository.Api
             using (var client = BaseClient())
             {
                 var response = await client.GetAsync(controller, HttpCompletionOption.ResponseHeadersRead);
-                string json = await response.Content.ReadAsStringAsync();
-                var contentLength = response.Content.Headers.ContentLength;
-                Stream stream = await response.Content.ReadAsStreamAsync();
-                if (progress == null || !contentLength.HasValue)
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    await stream.CopyToAsync(destination);
+                    string json = await response.Content.ReadAsStringAsync();
+                    var contentLength = response.Content.Headers.ContentLength;
+                    Stream stream = await response.Content.ReadAsStreamAsync();
+                    if (progress == null || !contentLength.HasValue)
+                    {
+                        await stream.CopyToAsync(destination);
+                        return default;
+                    }
+
+                    var relativeProgress = new Progress<long>(totalBytes => progress.Report((float)totalBytes / contentLength.Value));
+                    await stream.CopyToAsync(destination, 8, relativeProgress, cancellationToken);
+                    progress.Report(1);
+                    TResult obj = JsonConvert.DeserializeObject<TResult>(json);
+                    return obj;
+                }
+                else
+                {
                     return default;
                 }
-
-                var relativeProgress = new Progress<long>(totalBytes => progress.Report((float)totalBytes / contentLength.Value));
-                await stream.CopyToAsync(destination, 8, relativeProgress, cancellationToken);
-                progress.Report(1);
-                TResult obj = JsonConvert.DeserializeObject<TResult>(json);
-                return obj;
             }
         }
 
