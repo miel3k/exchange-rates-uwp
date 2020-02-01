@@ -1,15 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.1000
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExchangeRates.App", "ExchangeRates.App\ExchangeRates.App.csproj", "{7C440C23-0270-4329-A4F6-EA22790EACEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExchangeRates.Service", "ExchangeRates.Service\ExchangeRates.Service.csproj", "{D29C9E1C-DFE9-4C1C-BAA4-16B10A63A74E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExchangeRates.Repository", "ExchangeRates.Repository\ExchangeRates.Repository.csproj", "{A567F7D0-4793-494B-84D8-437372445223}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExchangeRates.Repository", "ExchangeRates.Repository\ExchangeRates.Repository.csproj", "{A567F7D0-4793-494B-84D8-437372445223}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExchangeRates.Model", "ExchangeRates.Model\ExchangeRates.Model.csproj", "{661ABA20-A3F2-42C1-B7B2-BE13455BAE2D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExchangeRates.Model", "ExchangeRates.Model\ExchangeRates.Model.csproj", "{661ABA20-A3F2-42C1-B7B2-BE13455BAE2D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,26 +49,6 @@ Global
 		{7C440C23-0270-4329-A4F6-EA22790EACEF}.Release|x86.ActiveCfg = Release|x86
 		{7C440C23-0270-4329-A4F6-EA22790EACEF}.Release|x86.Build.0 = Release|x86
 		{7C440C23-0270-4329-A4F6-EA22790EACEF}.Release|x86.Deploy.0 = Release|x86
-		{D29C9E1C-DFE9-4C1C-BAA4-16B10A63A74E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D29C9E1C-DFE9-4C1C-BAA4-16B10A63A74E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D29C9E1C-DFE9-4C1C-BAA4-16B10A63A74E}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{D29C9E1C-DFE9-4C1C-BAA4-16B10A63A74E}.Debug|ARM.Build.0 = Debug|Any CPU
-		{D29C9E1C-DFE9-4C1C-BAA4-16B10A63A74E}.Debug|ARM64.ActiveCfg = Debug|Any CPU
-		{D29C9E1C-DFE9-4C1C-BAA4-16B10A63A74E}.Debug|ARM64.Build.0 = Debug|Any CPU
-		{D29C9E1C-DFE9-4C1C-BAA4-16B10A63A74E}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{D29C9E1C-DFE9-4C1C-BAA4-16B10A63A74E}.Debug|x64.Build.0 = Debug|Any CPU
-		{D29C9E1C-DFE9-4C1C-BAA4-16B10A63A74E}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{D29C9E1C-DFE9-4C1C-BAA4-16B10A63A74E}.Debug|x86.Build.0 = Debug|Any CPU
-		{D29C9E1C-DFE9-4C1C-BAA4-16B10A63A74E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D29C9E1C-DFE9-4C1C-BAA4-16B10A63A74E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D29C9E1C-DFE9-4C1C-BAA4-16B10A63A74E}.Release|ARM.ActiveCfg = Release|Any CPU
-		{D29C9E1C-DFE9-4C1C-BAA4-16B10A63A74E}.Release|ARM.Build.0 = Release|Any CPU
-		{D29C9E1C-DFE9-4C1C-BAA4-16B10A63A74E}.Release|ARM64.ActiveCfg = Release|Any CPU
-		{D29C9E1C-DFE9-4C1C-BAA4-16B10A63A74E}.Release|ARM64.Build.0 = Release|Any CPU
-		{D29C9E1C-DFE9-4C1C-BAA4-16B10A63A74E}.Release|x64.ActiveCfg = Release|Any CPU
-		{D29C9E1C-DFE9-4C1C-BAA4-16B10A63A74E}.Release|x64.Build.0 = Release|Any CPU
-		{D29C9E1C-DFE9-4C1C-BAA4-16B10A63A74E}.Release|x86.ActiveCfg = Release|Any CPU
-		{D29C9E1C-DFE9-4C1C-BAA4-16B10A63A74E}.Release|x86.Build.0 = Release|Any CPU
 		{A567F7D0-4793-494B-84D8-437372445223}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A567F7D0-4793-494B-84D8-437372445223}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A567F7D0-4793-494B-84D8-437372445223}.Debug|ARM.ActiveCfg = Debug|Any CPU
