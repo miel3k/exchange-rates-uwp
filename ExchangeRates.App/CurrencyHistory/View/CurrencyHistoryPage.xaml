@@ -45,9 +45,14 @@
                 RelativePanel.AlignRightWithPanel="True"
                 RelativePanel.RightOf="PageTitle">
                 <AppBarButton
+                    Click="RefreshButton_Click"
+                    Icon="Refresh"
+                    IsEnabled="{x:Bind ViewModel.IsChartVisible, Mode=OneWay}"
+                    Label="Refresh" />
+                <AppBarButton
                     Click="SaveChartButton_Click"
                     Icon="Save"
-                    IsEnabled="True"
+                    IsEnabled="{x:Bind ViewModel.IsChartVisible, Mode=OneWay}"
                     Label="Save" />
             </CommandBar>
 
@@ -57,24 +62,31 @@
                 RelativePanel.AlignHorizontalCenterWithPanel="True"
                 RelativePanel.Below="PageTitle">
                 <TextBlock
-                    Margin="16,16,16,16"
+                    Margin="8,8,8,8"
                     Style="{StaticResource PageTitleTextBlockStyle}"
                     Text="From:" />
                 <CalendarDatePicker 
+                    CalendarViewDayItemChanging="CalendarDatePicker_DayItemChanging"
                     x:Name="startDate"
-                    Margin="16,16,16,16"
+                    FirstDayOfWeek="Monday"
+                    Margin="8,8,8,8"
                     MinDate="{x:Bind ViewModel.MinDate}"
                     IsEnabled="{x:Bind ViewModel.IsChartVisible, Mode=OneWay}"
-                    Date="{x:Bind ViewModel.StartDate, Mode=TwoWay}"/>
+                    Date="{x:Bind ViewModel.StartDate, Mode=TwoWay}"
+                    DateFormat="{}{day.integer} {month.full} {year.full}"/>
                 <TextBlock
-                    Margin="16,16,16,16"
+                    Margin="8,8,8,8"
                     Style="{StaticResource PageTitleTextBlockStyle}"
                     Text="To:" />
                 <CalendarDatePicker 
+                    CalendarViewDayItemChanging="CalendarDatePicker_DayItemChanging"
                     x:Name="endDate"
+                    FirstDayOfWeek="Monday"
+                    Margin="8,8,8,8"
                     MaxDate="{x:Bind ViewModel.MaxDate}"
                     IsEnabled="{x:Bind ViewModel.IsChartVisible, Mode=OneWay}"
-                    Date="{x:Bind ViewModel.EndDate, Mode=TwoWay}"/>
+                    Date="{x:Bind ViewModel.EndDate, Mode=TwoWay}"
+                    DateFormat="{}{day.integer} {month.full} {year.full}"/>
             </StackPanel>
 
             <syncfusion:SfChart 

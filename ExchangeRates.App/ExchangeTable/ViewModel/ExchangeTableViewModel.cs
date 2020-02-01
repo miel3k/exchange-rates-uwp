@@ -26,7 +26,15 @@ namespace ExchangeRates.App.ExchangeTable
 
         private readonly ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
 
-        private bool _isLoading = false;
+        private bool _isRefreshButtonVisible = false;
+
+        public bool IsRefreshButtonVisible
+        {
+            get => _isRefreshButtonVisible;
+            set => Set(ref _isRefreshButtonVisible, value);
+        }
+
+        private bool _isLoading = true;
 
         public bool IsLoading
         {
@@ -68,6 +76,7 @@ namespace ExchangeRates.App.ExchangeTable
             await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
             {
                 IsLoading = true;
+                IsRefreshButtonVisible = false;
                 Rates.Clear();
             });
 
@@ -80,6 +89,7 @@ namespace ExchangeRates.App.ExchangeTable
                 {
                     ExchangeTable = table;
                     IsLoading = false;
+                    IsRefreshButtonVisible = true;
                     foreach (var r in table.Rates)
                     {
                         Rates.Add(r);

@@ -73,6 +73,20 @@ namespace ExchangeRates.App.ExchangeTable
             Frame.Navigate(typeof(CurrencyHistoryPage), item.Code);
         }
 
+        private void CalendarDatePicker_DayItemChanging(CalendarView sender, CalendarViewDayItemChangingEventArgs e)
+        {
+            bool isBlackout;
+            if (e.Item.Date.DayOfWeek == DayOfWeek.Sunday || e.Item.Date.DayOfWeek == DayOfWeek.Saturday)
+            {
+                isBlackout = true;
+            }
+            else
+            {
+                isBlackout = false;
+            }
+            e.Item.IsBlackout = isBlackout;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged([CallerMemberName] string propertyName = null) =>

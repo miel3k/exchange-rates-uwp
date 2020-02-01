@@ -65,10 +65,6 @@
                     Margin="16,0,16,0"
                     Style="{StaticResource PageTitleTextBlockStyle}"
                     Text="{x:Bind ViewModel.ExchangeTable.No, Mode=OneWay}" />
-                <TextBlock
-                    Margin="16,0,16,0"
-                    Style="{StaticResource PageTitleTextBlockStyle}"
-                    Text="{x:Bind ViewModel.ExchangeTable.EffectiveDate, Mode=OneWay}" />
             </StackPanel>
             
             <CommandBar
@@ -81,19 +77,32 @@
                 <AppBarButton
                     Click="RefreshButton_Click"
                     Icon="Refresh"
-                    IsEnabled="{x:Bind ViewModel.IsLoading, Mode=OneWay}"
+                    IsEnabled="{x:Bind ViewModel.IsRefreshButtonVisible, Mode=OneWay}"
                     Label="Refresh" />
             </CommandBar>
             
             <CalendarDatePicker 
                 x:Name="selectedDate"
+                CalendarViewDayItemChanging="CalendarDatePicker_DayItemChanging"
+                DateFormat="{}{day.integer} {month.full} {year.full}"
+                FirstDayOfWeek="Monday"
                 Margin="0,24,0,24"
                 VerticalAlignment="Center"
                 RelativePanel.Below="PageTitle"
                 RelativePanel.AlignHorizontalCenterWithPanel="True"
+                IsEnabled="{x:Bind ViewModel.IsRefreshButtonVisible, Mode=OneWay}"
                 MaxDate="{x:Bind ViewModel.MaxDate}"
                 Date="{x:Bind ViewModel.SelectedDate, Mode=TwoWay}">
             </CalendarDatePicker>
+            <ProgressRing 
+                IsActive="{x:Bind ViewModel.IsLoading, Mode=OneWay}" 
+                Height="100" 
+                Width="100" 
+                Foreground="Blue"
+                RelativePanel.AlignBottomWithPanel="True"
+                RelativePanel.AlignLeftWithPanel="True"
+                RelativePanel.AlignRightWithPanel="True"
+                RelativePanel.Below="selectedDate"/>
             <ListView x:Name="RatesListView"
                   RelativePanel.AlignBottomWithPanel="True"
                    RelativePanel.AlignLeftWithPanel="True"

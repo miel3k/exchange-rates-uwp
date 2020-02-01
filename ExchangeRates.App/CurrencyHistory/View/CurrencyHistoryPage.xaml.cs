@@ -81,6 +81,9 @@ namespace ExchangeRates.App.CurrencyHistory
             }
         }
 
+        private async void RefreshButton_Click(object sender, RoutedEventArgs e) =>
+            await ViewModel.LoadCurrencyTableAsync();
+
         private void SaveChartButton_Click(object sender, RoutedEventArgs e)
         {
             HistoryChart.Save();
@@ -115,6 +118,20 @@ namespace ExchangeRates.App.CurrencyHistory
         {
             On_BackRequested();
             args.Handled = true;
+        }
+
+        private void CalendarDatePicker_DayItemChanging(CalendarView sender, CalendarViewDayItemChangingEventArgs e)
+        {
+            bool isBlackout;
+            if (e.Item.Date.DayOfWeek == DayOfWeek.Sunday || e.Item.Date.DayOfWeek == DayOfWeek.Saturday)
+            {
+                isBlackout = true;
+            }
+            else
+            {
+                isBlackout = false;
+            }
+            e.Item.IsBlackout = isBlackout;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
