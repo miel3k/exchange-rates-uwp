@@ -75,6 +75,12 @@ namespace ExchangeRates.App.CurrencyHistory
                 inAppNotification.Show("Incorrect period provided!", 3000);
                 return;
             }
+            int dateSubtraction = toDate.Date.Subtract(fromDate.Date).Days;
+            if (dateSubtraction > 367)
+            {
+                inAppNotification.Show("Limit of 367 days has been exceeded!", 3000);
+                return;
+            }
             await ViewModel.LoadCurrencyTableAsync();
         }
 
