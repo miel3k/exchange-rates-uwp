@@ -14,9 +14,12 @@
     <Page.Resources>
         <local:InverseBooleanConverter x:Key="BoolToVis" />
     </Page.Resources>
-    
-    <Grid>
-        <RelativePanel ManipulationMode="TranslateX" ManipulationDelta="Grid_ManipulationDelta" ManipulationCompleted="Grid_ManipulationCompleted">
+
+    <Grid ManipulationMode="TranslateX" 
+          ManipulationDelta="Grid_ManipulationDelta" 
+          ManipulationCompleted="Grid_ManipulationCompleted"
+          Background="Transparent">
+        <RelativePanel >
             <StackPanel
                 x:Name="PageTitle"
                 Orientation="Horizontal">
